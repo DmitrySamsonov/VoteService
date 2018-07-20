@@ -1,7 +1,8 @@
 package com.ots.voteservice.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ots.voteservice.dto.VotingDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,12 +10,24 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 @RestController
-public class VoteController {
+@CrossOrigin
+public class VotingController {
 
-    @RequestMapping("/")
+    @RequestMapping(value = "/")
     public String testController() {
         return "nothing";
     }
+
+
+
+    @PostMapping(value = "/voting/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createVoting(@RequestBody VotingDto votingDto) {
+        System.out.println("enter to log, that have a request!");
+    }
+
+
+
 
 
     @RequestMapping("/mydb")
