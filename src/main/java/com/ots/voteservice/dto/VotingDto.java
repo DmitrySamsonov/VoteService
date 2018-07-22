@@ -1,22 +1,22 @@
 package com.ots.voteservice.dto;
 
-import java.util.Map;
+import java.util.List;
 
 public class VotingDto {
-    private String themeName;
+    private String votingTheme;
     private String question;
-    private Map<String, Integer> voteList;
+    private List<AnswerDto> answerList;
 
 
     public VotingDto() {
     }
 
-    public String getThemeName() {
-        return themeName;
+    public String getVotingTheme() {
+        return votingTheme;
     }
 
-    public void setThemeName(String themeName) {
-        this.themeName = themeName;
+    public void setVotingTheme(String votingTheme) {
+        this.votingTheme = votingTheme;
     }
 
     public String getQuestion() {
@@ -27,11 +27,11 @@ public class VotingDto {
         this.question = question;
     }
 
-    public Map<String, Integer> getVoteList() {
-        return voteList;
+    public List<AnswerDto> getAnswerList() {
+        return answerList;
     }
 
-    public void setVoteList(Map<String, Integer> voteList) {
-        this.voteList = voteList;
+    public void setAnswerList(List<AnswerDto> answerList) {
+        this.answerList = answerList;
     }
 }

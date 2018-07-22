@@ -7,13 +7,65 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
+    <script language="JavaScript">
+        var app = angular.module("VotingService", []);
+    </script>
+
     <script src="../js/createVoting.js"></script>
+    <script src="../js/getVotingStatistic.js"></script>
+    <script src="../js/setVotes.js"></script>
 </head>
-<body  ng-app="VotingService">
+<body ng-app="VotingService">
 Home page
 
+<br><br>
+<hr/>
+<h2> Generate JSON Voting </h2>
+
+
 <div ng-controller="VotingController">
+
+    <form novalidate class="simple-form">
+        <label>votingTheme: <input type="text" ng-model="votingCreateDto.votingTheme" size="60"/></label>
+        <br>
+        <br>
+        <label>question: <input type="text" ng-model="votingCreateDto.question" size="65"/></label>
+        <br>
+        <br>
+        <div class="form-group" data-ng-repeat="answer in answers">
+            <input type="text" placeholder="Enter a answer" ng-model="answer.answerName">
+        </div>
+        <br>
+        <button ng-click="removeLastAnswer()">Remove Answer</button>
+        <button ng-show="showAddAnswer(answer)" ng-click="addNewAnswer()">Add Answer</button>
+    </form>
+
+    <h3>JSON:</h3>
+    <pre>{{votingCreateDto | json}}</pre>
+    <hr>
+    <h2>Create Voting by sending JSON to server</h2>
     <button ng-click="createVoting()" class="create-button">Create voting</button>
+    <p>
+        Link: <a href="{{link}}">{{link}}</a>
+    </p>
+</div>
+
+<br>
+<hr/>
+<h2>Get voting statistic by votingId</h2>
+<div ng-controller="GetVotingStatisticController">
+    <button ng-click="getStatisticVoting()" class="create-button">Get voting statistic</button>
+    <div>
+        <pre>{{voting | json}}</pre>
+    </div>
+</div>
+
+
+<div ng-controller="SetVotingController">
+    <button ng-click="setVotes()" class="create-button">Set vote</button>
+    <div>
+        <pre>{{voting | json}}</pre>
+    </div>
 </div>
 
 
