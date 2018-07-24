@@ -1,82 +1,80 @@
 package com.ots.voteservice.controller;
 
+import com.ots.voteservice.dto.AnswerDto;
 import com.ots.voteservice.dto.VotingDto;
+import com.ots.voteservice.service.VotingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.websocket.server.PathParam;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping(value = "/rest")
 public class VotingController {
 
-    @RequestMapping(value = "/")
-    public String testController() {
-        return "nothing";
-    }
+    @Autowired
+    private VotingService votingService;
 
-
-    private VotingDto votingDtoSend;
 
     @PostMapping(value = "/voting/create")
     @ResponseStatus(HttpStatus.CREATED)
     public String createVoting(@RequestBody VotingDto votingDto) {
         System.out.println("enter to log, that have a request!");
-        votingDtoSend = votingDto;
-        return "http://localhost:8090/voting/votingId";
+        return votingService.createVoting(votingDto);
     }
 
-
-    @GetMapping(value = "/voting/votingId")
-    public VotingDto getVotingStatistic() {
+    @GetMapping(value = "/voting/{votingId}/id")
+    public String getIdByLink(@RequestParam(name = "link") String link) {
         System.out.println("enter to log, that have a request!");
-        return votingDtoSend;
+        return String.valueOf(votingService.getIdByLink(link));
     }
 
-    @GetMapping(value = "/home")
-    public String getHomePage() {
+
+    @GetMapping(value = "/voting/{votingId}/start")
+    @ResponseStatus(HttpStatus.OK)
+    public void startVoting(@PathVariable int votingId) {
         System.out.println("enter to log, that have a request!");
-        return "index";
+        votingService.startVoting(votingId);
     }
 
-    @PostMapping(value = "/voting/votingId2")
-    public VotingDto setVote(@RequestParam("voteText") String voteText ) {
+
+    @GetMapping(value = "/voting/{votingId}/stop")
+    @ResponseStatus(HttpStatus.OK)
+    public void stopVoting(@PathVariable int votingId) {
         System.out.println("enter to log, that have a request!");
+        votingService.stopVoting(votingId);
+    }
 
-//        Map<String, Integer> map = votingDtoSend.getVoteList();
-//        map.put(voteText, map.get(voteText) + 1);
-        return votingDtoSend;
+
+    @GetMapping(value = "/voting/{votingId}")
+    public VotingDto getVotingStatistic(@PathVariable int votingId) {
+        System.out.println("enter to log, that have a request!");
+        return votingService.getVotingById(votingId);
+    }
+
+
+
+
+    @PostMapping(value = "/voting/{votingId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void setVotes(@RequestBody List<AnswerDto> answerDtoList, @PathVariable int votingId) {
+        System.out.println("enter to log, that have a request!");
+        votingService.setVotes(answerDtoList, votingId);
     }
 
 
 
 
 
-
-
-    @RequestMapping("/mydb")
-    public String testController2() {
-
-        try {
-            Class.forName("org.h2.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:h2:~edaDB", "test", "test");
-            Statement st = conn.createStatement();
-            st.execute("create TABLE pawn(name VARCHAR(20))");
-            System.out.println("table create successfullt");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-        return "result";
-    }
-
+//    @GetMapping(value = "/home")
+//    public ModelAndView getHomePage() {
+//        System.out.println("enter to log, that have a request!");
+//
+//        ModelAndView mav = new ModelAndView("/index");
+////        mav.addObject("foos", fooService.getFoos());
+//        return mav;
+//    }
 }

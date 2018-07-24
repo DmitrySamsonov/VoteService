@@ -11,9 +11,7 @@ app.controller("SetVotingController", function ($scope, $http) {
     //     }
     // };
 
-    $scope.selectedItems = {
-        voteText: "at home"
-    };
+    $scope.selectedAnswers = [     "aa", "bb"    ];
 
     $scope.setVotes = function () {
         alert("set votes!");

@@ -1,14 +1,34 @@
 package com.ots.voteservice.dto;
 
+import com.ots.voteservice.entity.Answer;
+
 public class AnswerDto {
 
-    String answerName;
-    int count;
+    private String answerName;
+    private int count;
 
     public AnswerDto() {
     }
 
-      public String getAnswerName() {
+    public Answer toEntity(AnswerDto answerDto) {
+        Answer answer = new Answer();
+
+        //TODO: посмотри еще что с ID шником делать
+        answer.setAnswerName(answerDto.getAnswerName());
+        answer.setCount(answerDto.getCount());
+        return answer;
+    }
+
+
+    public AnswerDto toDto(Answer answer) {
+        AnswerDto answerDto = new AnswerDto();
+        answerDto.setAnswerName(answer.getAnswerName());
+        answerDto.setCount(answer.getCount());
+        return answerDto;
+    }
+
+
+    public String getAnswerName() {
         return answerName;
     }
 
@@ -23,4 +43,5 @@ public class AnswerDto {
     public void setCount(int count) {
         this.count = count;
     }
+
 }

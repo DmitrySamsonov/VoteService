@@ -9,9 +9,26 @@
 
     <script language="JavaScript">
         var app = angular.module("VotingService", []);
+        var votingLink = "";
+        var votingId = "???";
+
+        app.factory('DataTransfer', function () {
+
+            var data = {};
+
+            var getVotingLink = function () {
+                return data;
+            };
+
+            var setVotingLink = function (VotingLink) {
+                data = VotingLink;
+            }
+
+        });
     </script>
 
     <script src="../js/createVoting.js"></script>
+    <script src="../js/startStopVoting.js"></script>
     <script src="../js/getVotingStatistic.js"></script>
     <script src="../js/setVotes.js"></script>
 </head>
@@ -20,7 +37,7 @@ Home page
 
 <br><br>
 <hr/>
-<h2> Generate JSON Voting </h2>
+<h3> Generate JSON Voting </h3>
 
 
 <div ng-controller="VotingController">
@@ -32,6 +49,7 @@ Home page
         <label>question: <input type="text" ng-model="votingCreateDto.question" size="65"/></label>
         <br>
         <br>
+        <label>answers:</label>
         <div class="form-group" data-ng-repeat="answer in answers">
             <input type="text" placeholder="Enter a answer" ng-model="answer.answerName">
         </div>
@@ -50,6 +68,18 @@ Home page
     </p>
 </div>
 
+
+<br>
+<hr/>
+<h2>Start & Stop Voting</h2>
+<div ng-controller="StartStopController">
+    <button ng-click="getVotingIdByLink(votingLink)" class="create-button">Get Voting Id</button>
+    {{app.votingId}}
+    <br><br>
+    <button ng-click="startVoting(votingId)" class="create-button">Start Voting</button>
+    <button ng-click="stopVoting(votingId)" class="create-button">Stop Voting</button>
+</div>
+
 <br>
 <hr/>
 <h2>Get voting statistic by votingId</h2>
@@ -62,7 +92,7 @@ Home page
 
 
 <div ng-controller="SetVotingController">
-    <button ng-click="setVotes()" class="create-button">Set vote</button>
+    <button ng-click="setVotes()" class="create-button">Set voting</button>
     <div>
         <pre>{{voting | json}}</pre>
     </div>

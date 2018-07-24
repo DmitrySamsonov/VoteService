@@ -1,8 +1,8 @@
 app.controller("VotingController", function ($scope, $http) {
 
 
-    $scope.answers = [{answerName: '', count: '0'},
-        {answerName: '', count: '0'},
+    $scope.answers = [{answerName: 'aa', count: '0'},
+        {answerName: 'bb', count: '0'},
     ];
 
 
@@ -35,15 +35,17 @@ app.controller("VotingController", function ($scope, $http) {
 
         $http({
             method: "POST",
-            url: "http://localhost:8090/voting/create",
+            url: "http://localhost:8090/rest/voting/create",
             data: $scope.votingCreateDto,
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(
             function (res) { // success
-                $scope.link = res.data;
                 console.log("success: " + res.status + " : " + res.data);
+                $scope.link = res.data;
+                votingLink = res.data;
+                DataTransfer.setVotingLink(res.data);
             },
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);

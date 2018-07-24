@@ -1,28 +1,30 @@
 app.controller("GetVotingStatisticController", function ($scope, $http) {
 
-
-    $scope.votingDto = {
-        votingTheme: "",
-        question: "",
-        voteList: { }
-    };
-
-    // $scope.voting = {};
-
+    //
+    // $scope.votingDto = {
+    //     votingTheme: "",
+    //     question: "",
+    //     voteList: { }
+    // };
+    //
+    // // $scope.voting = {};
+    // $scope.b = 3;
 
     $scope.getStatisticVoting = function () {
-        alert("sending http GET request to url: " + votingLink + "for get voting statistic...");
+        alert("get statistic!");
+
 
         $http({
             method: 'GET',
-            url: votingLink,
+            url: 'http://localhost:8090/rest/voting/1',
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(
             function (res) { // success
-                console.log($scope.voting);
                 $scope.voting = res.data;
+                console.log($scope.voting);
+                $scope.b = 12;
             },
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
