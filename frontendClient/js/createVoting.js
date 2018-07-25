@@ -1,8 +1,10 @@
 app.controller("VotingController", function ($scope, $http) {
 
 
-    $scope.answers = [{answerName: 'aa', count: '0'},
-        {answerName: 'bb', count: '0'},
+    $scope.answers = [{answerName: 'home', count: '0'},
+        {answerName: 'bar', count: '0'},
+        {answerName: 'restaurant', count: '0'},
+        {answerName: 'cottage', count: '0'},
     ];
 
 
