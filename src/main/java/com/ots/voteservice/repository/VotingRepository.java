@@ -2,10 +2,9 @@ package com.ots.voteservice.repository;
 
 import com.ots.voteservice.entity.Voting;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
-public interface VotingRepository  extends CrudRepository<Voting, Integer> {
-    Voting findByLink(String link);
+public interface VotingRepository extends CrudRepository<Voting, Integer> {
+    Optional<Voting> findByVotingId(int id);
 }

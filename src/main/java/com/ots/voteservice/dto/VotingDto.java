@@ -5,7 +5,6 @@ import com.ots.voteservice.entity.Voting;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class VotingDto {
     private String votingTheme;
@@ -31,15 +30,14 @@ public class VotingDto {
     }
 
 
-    public VotingDto toDto(Optional<Voting> voting) {
+    public VotingDto toDto(Voting voting) {
         VotingDto votingDto = new VotingDto();
 
         //TODO: проверка на id (есть - заполняем, нету - оставляем)
-        Voting votingObj = voting.get();
-        votingDto.setVotingTheme(votingObj.getVotingTheme());
-        votingDto.setQuestion(votingObj.getQuestion());
+        votingDto.setVotingTheme(voting.getVotingTheme());
+        votingDto.setQuestion(voting.getQuestion());
         List<AnswerDto> answerDtoList = new ArrayList<>();
-        for (Answer answer : votingObj.getAnswers()) {
+        for (Answer answer : voting.getAnswers()) {
             answerDtoList.add(new AnswerDto().toDto(answer));
         }
         votingDto.setAnswerList(answerDtoList);

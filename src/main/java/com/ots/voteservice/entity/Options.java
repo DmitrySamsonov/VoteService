@@ -7,12 +7,16 @@ import javax.persistence.*;
 public class Options {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
     @Column(name = "link")
     private String link;
+
+    @Column(name = "method")
+    private String method;
+
 
     @Column(name = "description")
     private String description;
@@ -35,6 +39,14 @@ public class Options {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     public String getDescription() {

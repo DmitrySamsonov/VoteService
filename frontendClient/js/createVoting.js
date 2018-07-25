@@ -43,9 +43,8 @@ app.controller("VotingController", function ($scope, $http) {
         }).then(
             function (res) { // success
                 console.log("success: " + res.status + " : " + res.data);
-                $scope.link = res.data;
-                votingLink = res.data;
-                DataTransfer.setVotingLink(res.data);
+                $scope.votingId = res.data;
+                votingId = res.data;
             },
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);

@@ -1,12 +1,10 @@
 package com.ots.voteservice.controller;
 
-import com.ots.voteservice.dto.AnswerDto;
 import com.ots.voteservice.dto.VotingDto;
 import com.ots.voteservice.service.VotingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -21,17 +19,10 @@ public class VotingController {
 
     @PostMapping(value = "/voting/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createVoting(@RequestBody VotingDto votingDto) {
+    public int createVoting(@RequestBody VotingDto votingDto) {
         System.out.println("enter to log, that have a request!");
         return votingService.createVoting(votingDto);
     }
-
-    @GetMapping(value = "/voting/{votingId}/id")
-    public String getIdByLink(@RequestParam(name = "link") String link) {
-        System.out.println("enter to log, that have a request!");
-        return String.valueOf(votingService.getIdByLink(link));
-    }
-
 
     @GetMapping(value = "/voting/{votingId}/start")
     @ResponseStatus(HttpStatus.OK)
@@ -40,7 +31,6 @@ public class VotingController {
         votingService.startVoting(votingId);
     }
 
-
     @GetMapping(value = "/voting/{votingId}/stop")
     @ResponseStatus(HttpStatus.OK)
     public void stopVoting(@PathVariable int votingId) {
@@ -48,33 +38,25 @@ public class VotingController {
         votingService.stopVoting(votingId);
     }
 
+    @GetMapping(value = "/voting/{votingId}/link")
+    public String getLinkById(@PathVariable int votingId) {
+        System.out.println("enter to log, that have a request!");
+        return votingService.getLinkByVotingId(votingId);
+    }
 
     @GetMapping(value = "/voting/{votingId}")
     public VotingDto getVotingStatistic(@PathVariable int votingId) {
         System.out.println("enter to log, that have a request!");
-        return votingService.getVotingById(votingId);
+        return votingService.getVotingDtoById(votingId);
     }
 
 
-
-
-    @PostMapping(value = "/voting/{votingId}")
+    @PostMapping(value = "/voting/answers")
     @ResponseStatus(HttpStatus.OK)
-    public void setVotes(@RequestBody List<AnswerDto> answerDtoList, @PathVariable int votingId) {
+    public void getHomePage21d333(@RequestParam(name = "selectedAnswersId") List selectedAnswersId,
+                                  @RequestParam(name = "votingId") String votingId) {
         System.out.println("enter to log, that have a request!");
-        votingService.setVotes(answerDtoList, votingId);
+        votingService.setVotes(selectedAnswersId, votingId);
     }
 
-
-
-
-
-//    @GetMapping(value = "/home")
-//    public ModelAndView getHomePage() {
-//        System.out.println("enter to log, that have a request!");
-//
-//        ModelAndView mav = new ModelAndView("/index");
-////        mav.addObject("foos", fooService.getFoos());
-//        return mav;
-//    }
 }

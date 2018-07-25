@@ -86,7 +86,6 @@ public class Voting {
         isOpen = open;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

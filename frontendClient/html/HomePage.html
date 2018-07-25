@@ -11,36 +11,19 @@
         var app = angular.module("VotingService", []);
         var votingLink = "";
         var votingId = "???";
-
-        app.factory('DataTransfer', function () {
-
-            var data = {};
-
-            var getVotingLink = function () {
-                return data;
-            };
-
-            var setVotingLink = function (VotingLink) {
-                data = VotingLink;
-            }
-
-        });
     </script>
 
     <script src="../js/createVoting.js"></script>
     <script src="../js/startStopVoting.js"></script>
-    <script src="../js/getVotingStatistic.js"></script>
-    <script src="../js/setVotes.js"></script>
+    <script src="../js/getVotingLink.js"></script>
+    <script src="../js/getOptions.js"></script>
 </head>
 <body ng-app="VotingService">
 Home page
 
-<br><br>
-<hr/>
-<h3> Generate JSON Voting </h3>
-
-
 <div ng-controller="VotingController">
+    <hr/>
+    <h3> Generate JSON Voting </h3>
 
     <form novalidate class="simple-form">
         <label>votingTheme: <input type="text" ng-model="votingCreateDto.votingTheme" size="60"/></label>
@@ -60,44 +43,58 @@ Home page
 
     <h3>JSON:</h3>
     <pre>{{votingCreateDto | json}}</pre>
-    <hr>
+    <hr/>
     <h2>Create Voting by sending JSON to server</h2>
     <button ng-click="createVoting()" class="create-button">Create voting</button>
     <p>
-        Link: <a href="{{link}}">{{link}}</a>
+        Voting ID: {{votingId}}
     </p>
 </div>
 
 
-<br>
-<hr/>
-<h2>Start & Stop Voting</h2>
 <div ng-controller="StartStopController">
-    <button ng-click="getVotingIdByLink(votingLink)" class="create-button">Get Voting Id</button>
-    {{app.votingId}}
+    <hr>
+    <h2>Start & Stop Voting</h2>
+    Voting is {{isOpen}}
     <br><br>
     <button ng-click="startVoting(votingId)" class="create-button">Start Voting</button>
     <button ng-click="stopVoting(votingId)" class="create-button">Stop Voting</button>
 </div>
 
+
+<div ng-controller="GetVotingLinkController">
+    <br>
+    <hr/>
+    <h2>Get Voting Link</h2>
+    <button ng-click="getLinkByVotingId()" class="create-button">Get Voting Link</button>
+    <p>
+        Link: <a target="_blank" href="{{link}}">{{link}}</a>
+    </p>
+</div>
+
+<div data-ng-controller="GetOptionsController" data-ng-init="init()">
+    <br>
+    <hr/>
+    <h2>REST API Options</h2>
+    <table border="1">
+        <tr>
+            <td>Rest Api Link</td>
+            <td>HTTP-method</td>
+            <td>Description</td>
+        </tr>
+        <tr ng-repeat="option in options">
+            <td>{{ option.link }}</td>
+            <td>{{ option.method }}</td>
+            <td>{{ option.description }}</td>
+        </tr>
+    </table>
+</div>
+
 <br>
 <hr/>
-<h2>Get voting statistic by votingId</h2>
-<div ng-controller="GetVotingStatisticController">
-    <button ng-click="getStatisticVoting()" class="create-button">Get voting statistic</button>
-    <div>
-        <pre>{{voting | json}}</pre>
-    </div>
-</div>
-
-
-<div ng-controller="SetVotingController">
-    <button ng-click="setVotes()" class="create-button">Set voting</button>
-    <div>
-        <pre>{{voting | json}}</pre>
-    </div>
-</div>
-
+<h3>Open H2 database console:</h3>
+H2 database: <a target="_blank" href="http://localhost:8090/h2-console">http://localhost:8090/h2-console</a>
+<br><br><br>
 
 </body>
 </html>

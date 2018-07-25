@@ -6,15 +6,15 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class VoteserviceApplication  extends SpringBootServletInitializer {
+public class VoteserviceApplication extends SpringBootServletInitializer {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(VoteserviceApplication.class);
-	}
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(VoteserviceApplication.class);
+    }
 
 
-	public static void main(String[] args) {
-		SpringApplication.run(VoteserviceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(VoteserviceApplication.class, args);
+    }
 }

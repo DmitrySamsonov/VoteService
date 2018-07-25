@@ -1,35 +1,43 @@
 package com.ots.voteservice.controller;
 
+import com.ots.voteservice.entity.Voting;
+import com.ots.voteservice.service.VotingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class UiController {
 
-//
-//    @GetMapping(value = "/home5")
-//    public String getHomePage213() {
-//        System.out.println("enter to log, that have a request!");
-//        return "page.html";
-//    }
-//
-//    @GetMapping(value = "/home56")
-//    public ModelAndView  getHomePage21333() {
-//        ModelAndView modelAndView = new ModelAndView("page");
-//        modelAndView.addObject("message", "Baeldung");
-//        return modelAndView;
-//    }
-//
-//
-//
-//    @GetMapping(value = "/home6")
-//    public String getHomePage2133243() {
-//        System.out.println("enter to log, that have a request!");
-////        model.addAttribute("atr", "555");
-//        return "file.jsp";
-//    }
+    @Autowired
+    private VotingService votingService;
+
+
+    @GetMapping(value = "/voting/{votingId}")
+    public ModelAndView getHomePage21333(@PathVariable int votingId) {
+
+        Voting voting = votingService.getVotingById(votingId);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("message", "hello my dear friend");
+        mav.addObject("voting", voting);
+        mav.setViewName("show");
+        return mav;
+    }
+
+    @PostMapping(value = "/voting/answers")
+    public String getHomePage21d333(@RequestParam(name = "selectedAnswersId") List selectedAnswersId,
+                                    @RequestParam(name = "votingId") String votingId) {
+        System.out.println("enter to log, that have a request!");
+        votingService.setVotes(selectedAnswersId, votingId);
+        return "redirect:/voting/" + votingId;
+    }
 
 
 }
