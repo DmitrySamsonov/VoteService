@@ -17,7 +17,7 @@
     Answers:
 <form action="/voting/answers" method="post">
     <input hidden="hidden" type="text" name="votingId" value="${voting.getVotingId()}"/>
-    <table border=1 id="votingTable">
+    <table border=1 >
     <tr>
     <#--<td> id-->
         <td> name

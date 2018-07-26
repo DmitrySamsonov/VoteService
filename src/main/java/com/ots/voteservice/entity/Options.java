@@ -25,6 +25,12 @@ public class Options {
     public Options() {
     }
 
+    public Options(String link, String method, String description) {
+        this.link = link;
+        this.method = method;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

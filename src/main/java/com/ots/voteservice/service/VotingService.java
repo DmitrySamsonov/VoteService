@@ -68,7 +68,8 @@ public class VotingService {
     }
 
     public void setVotes(List<String> selectedAnswersId, String votingId) {
-        Optional<Voting> findedVoting = votingRepository.findByVotingId(Integer.valueOf(votingId));
+        int votingIdInt = Integer.valueOf(votingId);
+        Optional<Voting> findedVoting = votingRepository.findByVotingId(votingIdInt);
         Voting voting = findedVoting.get();
         List<Answer> answers = voting.getAnswers();
         List<Integer> selectedAnswersIdInt =

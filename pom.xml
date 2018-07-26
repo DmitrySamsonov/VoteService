@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 
 	<properties>
@@ -31,11 +31,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter</artifactId>-->
-		<!--</dependency>-->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -45,48 +40,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
-
-		<!--Tomcat embedded container-->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
-			<!--<scope>provided</scope>-->
-		<!--</dependency>-->
-
-		<!--<dependency>-->
-			<!--<groupId>javax.servlet</groupId>-->
-			<!--<artifactId>javax.servlet-api</artifactId>-->
-			<!--<version>3.0.1</version>-->
-			<!--<scope>provided</scope>-->
-		<!--</dependency>-->
-
-		<!--&lt;!&ndash; JSTL for JSP &ndash;&gt;-->
-		<!--<dependency>-->
-			<!--<groupId>javax.servlet</groupId>-->
-			<!--<artifactId>jstl</artifactId>-->
-		<!--</dependency>-->
-
-		<!-- Need this to compile JSP -->
-		<!--<dependency>-->
-			<!--<groupId>org.apache.tomcat.embed</groupId>-->
-			<!--<artifactId>tomcat-embed-jasper</artifactId>-->
-			<!--<scope>provided</scope>-->
-		<!--</dependency>-->
-
-		<!--<dependency>-->
-			<!--<groupId>javax.servlet</groupId>-->
-			<!--<artifactId>jstl</artifactId>-->
-			<!--<scope>provided</scope>-->
-		<!--</dependency>-->
-
-		<!-- Need this to compile JSP,
-			tomcat-embed-jasper version is not working, no idea why -->
-		<!--<dependency>-->
-			<!--<groupId>org.eclipse.jdt.core.compiler</groupId>-->
-			<!--<artifactId>ecj</artifactId>-->
-			<!--<version>4.6.1</version>-->
-			<!--<scope>provided</scope>-->
-		<!--</dependency>-->
 
 
 		<dependency>
@@ -98,7 +51,6 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>1.4.196</version>
-			<!--<scope>runtime</scope>-->
 		</dependency>
 
 		<dependency>

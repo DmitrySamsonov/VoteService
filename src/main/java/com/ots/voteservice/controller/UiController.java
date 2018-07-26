@@ -25,7 +25,6 @@ public class UiController {
         Voting voting = votingService.getVotingById(votingId);
 
         ModelAndView mav = new ModelAndView();
-        mav.addObject("message", "hello my dear friend");
         mav.addObject("voting", voting);
         mav.setViewName("show");
         return mav;
