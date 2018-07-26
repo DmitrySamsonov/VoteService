@@ -10,6 +10,11 @@ public class AnswerDto {
     public AnswerDto() {
     }
 
+    public AnswerDto(String answerName, int count) {
+        this.answerName = answerName;
+        this.count = count;
+    }
+
     public Answer toEntity(AnswerDto answerDto) {
         Answer answer = new Answer();
 
@@ -44,4 +49,22 @@ public class AnswerDto {
         this.count = count;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AnswerDto answerDto = (AnswerDto) o;
+
+        if (count != answerDto.count) return false;
+        return answerName != null ? answerName.equals(answerDto.answerName) : answerDto.answerName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = answerName != null ? answerName.hashCode() : 0;
+        result = 31 * result + count;
+        return result;
+    }
 }

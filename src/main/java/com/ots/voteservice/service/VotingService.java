@@ -20,8 +20,7 @@ public class VotingService {
 
 
     public int createVoting(VotingDto votingDto) {
-        //TODO: здесь будет еще проверка на валидность входных данных
-
+        checkVotingDto(votingDto);
 
         Voting voting = new VotingDto().toEntity(votingDto);
         Voting savedVoting = votingRepository.save(voting);
@@ -33,13 +32,17 @@ public class VotingService {
     }
 
     public Voting getVotingById(int votingId) {
-        //TODO: проверка на валидность id
+        if (!isInteger(votingId)) {
+            throw new IllegalArgumentException("votingId is not valid.");
+        }
         Optional<Voting> voting = votingRepository.findById(votingId);
         return voting.get();
     }
 
     public VotingDto getVotingDtoById(int votingId) {
-        //TODO: проверка на валидность id
+        if (!isInteger(votingId)) {
+            throw new IllegalArgumentException("votingId is not valid.");
+        }
         Voting voting = getVotingById(votingId);
         VotingDto votingDto = new VotingDto().toDto(voting);
         return votingDto;
@@ -85,21 +88,26 @@ public class VotingService {
         votingRepository.save(voting);
     }
 
-//    public void setVotes(List<AnswerDto> answerDtoList, int votingId) {
-//        Optional<Voting> findedVoting = votingRepository.findById(votingId);
-//        Voting voting = findedVoting.get();
-//        List<Answer> selectedAnswers = new ArrayList();
-//        for (AnswerDto answerDto : answerDtoList) {
-//            selectedAnswers.add(new AnswerDto().toEntity(answerDto));
-//        }
-//        for (int i = 0; i < voting.getAnswers().size(); i++) {
-//            Answer answerInVoting = voting.getAnswers().get(i);
-//            for (Answer selectedAnswer : selectedAnswers) {
-//                if (answerInVoting.getAnswerName().equals(selectedAnswer.getAnswerName())) {
-//                    answerInVoting.setCount(answerInVoting.getCount() + 1);
-//                }
-//            }
-//        }
-//
-//    }
+
+    private void checkVotingDto(VotingDto votingDto) {
+        if (votingDto != null) {
+            List answers = votingDto.getAnswerList();
+            if (answers.size() == 0) {
+                throw new IllegalArgumentException("voting without answers");
+            }
+        }
+    }
+
+    private boolean isInteger(int x) {
+        try {
+            if (x == (int) x) {
+                // Number is integer
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

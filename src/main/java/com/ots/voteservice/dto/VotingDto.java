@@ -14,6 +14,12 @@ public class VotingDto {
     public VotingDto() {
     }
 
+    public VotingDto(String votingTheme, String question, List<AnswerDto> answerList) {
+        this.votingTheme = votingTheme;
+        this.question = question;
+        this.answerList = answerList;
+    }
+
     public Voting toEntity(VotingDto votingDto) {
         Voting voting = new Voting();
 
@@ -68,4 +74,39 @@ public class VotingDto {
         this.answerList = answerList;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        VotingDto votingDto = (VotingDto) o;
+
+        if (votingTheme != null ? !votingTheme.equals(votingDto.votingTheme) : votingDto.votingTheme != null)
+            return false;
+        if (question != null ? !question.equals(votingDto.question) : votingDto.question != null) return false;
+
+        if(answerList != null){
+            if(votingDto.answerList != null){
+                for(int i = 0; i < answerList.size(); i++){
+                    if(!votingDto.answerList.get(i).equals(answerList.get(i))){
+                        return false;
+                    }
+                }
+
+            }
+        }else{
+            if(votingDto.answerList != null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = votingTheme != null ? votingTheme.hashCode() : 0;
+        result = 31 * result + (question != null ? question.hashCode() : 0);
+        result = 31 * result + (answerList != null ? answerList.hashCode() : 0);
+        return result;
+    }
 }

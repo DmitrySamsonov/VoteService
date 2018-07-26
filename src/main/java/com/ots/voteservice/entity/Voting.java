@@ -18,7 +18,7 @@ public class Voting {
     @Column(name = "question", nullable = false, unique = true)
     private String question;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Column(name = "answers")
     private List<Answer> answers;
 
@@ -34,6 +34,14 @@ public class Voting {
 
     public Voting(String votingTheme, String link, boolean isOpen) {
         this.votingTheme = votingTheme;
+        this.link = link;
+        this.isOpen = isOpen;
+    }
+
+    public Voting(String votingTheme, String question, List<Answer> answers, String link, boolean isOpen) {
+        this.votingTheme = votingTheme;
+        this.question = question;
+        this.answers = answers;
         this.link = link;
         this.isOpen = isOpen;
     }
@@ -97,7 +105,20 @@ public class Voting {
         if (isOpen != voting.isOpen) return false;
         if (votingTheme != null ? !votingTheme.equals(voting.votingTheme) : voting.votingTheme != null) return false;
         if (question != null ? !question.equals(voting.question) : voting.question != null) return false;
-        if (answers != null ? !answers.equals(voting.answers) : voting.answers != null) return false;
+
+        if(answers != null){
+            if(voting.answers != null){
+                for(int i = 0; i < answers.size(); i++){
+                    if(!voting.answers.get(i).equals(answers.get(i))){
+                        return false;
+                    }
+                }
+            }
+        }else{
+            if(voting.answers != null){
+                return false;
+            }
+        }
         return link != null ? link.equals(voting.link) : voting.link == null;
     }
 
