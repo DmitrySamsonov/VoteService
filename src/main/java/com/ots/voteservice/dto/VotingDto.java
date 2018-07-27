@@ -22,8 +22,6 @@ public class VotingDto {
 
     public Voting toEntity(VotingDto votingDto) {
         Voting voting = new Voting();
-
-        //TODO: посмотри еще что с ID шником делать
         voting.setVotingTheme(votingDto.getVotingTheme());
         voting.setQuestion(votingDto.getQuestion());
         List<Answer> answers = new ArrayList<>();
@@ -38,8 +36,6 @@ public class VotingDto {
 
     public VotingDto toDto(Voting voting) {
         VotingDto votingDto = new VotingDto();
-
-        //TODO: проверка на id (есть - заполняем, нету - оставляем)
         votingDto.setVotingTheme(voting.getVotingTheme());
         votingDto.setQuestion(voting.getQuestion());
         List<AnswerDto> answerDtoList = new ArrayList<>();

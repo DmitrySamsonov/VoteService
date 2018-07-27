@@ -17,8 +17,6 @@ public class AnswerDto {
 
     public Answer toEntity(AnswerDto answerDto) {
         Answer answer = new Answer();
-
-        //TODO: посмотри еще что с ID шником делать
         answer.setAnswerName(answerDto.getAnswerName());
         answer.setCount(answerDto.getCount());
         return answer;

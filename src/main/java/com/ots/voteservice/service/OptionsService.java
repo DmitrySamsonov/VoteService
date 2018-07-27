@@ -4,6 +4,8 @@ import com.ots.voteservice.dto.OptionsDto;
 import com.ots.voteservice.entity.Options;
 import com.ots.voteservice.repository.OptionsRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
