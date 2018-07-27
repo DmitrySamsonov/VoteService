@@ -25,8 +25,8 @@ public class VotingController {
 
     @GetMapping(value = "/voting/{votingId}/start")
     @ResponseStatus(HttpStatus.OK)
-    public void startVoting(@PathVariable int votingId) {
-        votingService.startVoting(votingId);
+    public String startVotingAndGenerateLink(@PathVariable int votingId) {
+        return  votingService.startVotingAndGenerateLink(votingId);
     }
 
     @GetMapping(value = "/voting/{votingId}/stop")
@@ -35,22 +35,21 @@ public class VotingController {
         votingService.stopVoting(votingId);
     }
 
-    @GetMapping(value = "/voting/{votingId}/link")
-    public String getLinkById(@PathVariable int votingId) {
-        return votingService.getLinkByVotingId(votingId);
-    }
-
     @GetMapping(value = "/voting/{votingId}")
     public VotingDto getVotingStatistic(@PathVariable int votingId) {
-        return votingService.getVotingDtoById(votingId);
+        return votingService.getVotingStatisticForRest(votingId);
     }
 
+    @GetMapping(value = "/voting/{votingId}/{answerId}")
+    public int getAnswerStatistic(@PathVariable int votingId, @PathVariable int answerId) {
+        return votingService.getAnswerStatisticByAnswerId(votingId, answerId);
+    }
 
-    @PostMapping(value = "/voting/answers")
+    @PostMapping(value = "/voting/{votingId}/answers")
     @ResponseStatus(HttpStatus.OK)
-    public void getHomePage21d333(@RequestParam(name = "selectedAnswersId") List selectedAnswersId,
-                                  @RequestParam(name = "votingId") String votingId) {
-        votingService.setVotes(selectedAnswersId, votingId);
+    public void setSelectedAnswers(@PathVariable int votingId, @RequestParam(name = "selectedAnswersId") List selectedAnswersId) {
+        votingService.setSelectedAnswers(selectedAnswersId, votingId);
     }
+
 
 }

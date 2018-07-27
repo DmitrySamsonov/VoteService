@@ -1,6 +1,8 @@
 app.controller("StartStopController", function ($scope, $http) {
 
     $scope.isOpen = "CLOSED";
+    $scope.link = "";
+    $scope.userLink = "";
 
     $scope.startVoting = function () {
         if (votingId == "???") {
@@ -8,7 +10,27 @@ app.controller("StartStopController", function ($scope, $http) {
             return;
         }
         // alert("sending http GET request to url: http://localhost:8090/rest/voting/" + votingId + "/start for start voting...");
-        sendRequest('/start');
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8090/rest/voting/' + votingId + '/start',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(
+            function (res) { // success
+                console.log("success: " + res.status + " : " + res.data);
+                // alert("success");
+                $scope.link = res.data;
+                votingLink = res.data;
+                $scope.userLink = res.data + "/ui";
+                $scope.isOpen = "OPEN";
+
+            },
+            function (res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+
     };
 
 
@@ -18,13 +40,9 @@ app.controller("StartStopController", function ($scope, $http) {
             return;
         }
         // alert("sending http GET request to url: http://localhost:8090/rest/voting/" + votingId + "/stop for start voting...");
-        sendRequest('/stop');
-    };
-
-    var sendRequest = function (action) {
         $http({
             method: 'GET',
-            url: 'http://localhost:8090/rest/voting/' + votingId + action,
+            url: 'http://localhost:8090/rest/voting/' + votingId + '/stop',
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -32,18 +50,15 @@ app.controller("StartStopController", function ($scope, $http) {
             function (res) { // success
                 console.log("success: " + res.status + " : " + res.data);
                 // alert("success");
-                if(action == "/start"){
-                    $scope.isOpen = "OPEN";
-                }
-                if(action == "/stop"){
-                    $scope.isOpen = "CLOSED";
-                }
+                $scope.isOpen = "CLOSED";
+
             },
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
             }
         );
-    }
+    };
+
 
 
 });

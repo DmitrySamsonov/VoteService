@@ -15,7 +15,7 @@
     Question: ${voting.getQuestion()}
     <br>
     Answers:
-<form action="/voting/answers" method="post">
+<form action="/rest/voting/${voting.getVotingId()}/answers/ui" method="post">
     <input hidden="hidden" type="text" name="votingId" value="${voting.getVotingId()}"/>
     <table border=1 >
     <tr>

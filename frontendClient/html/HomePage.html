@@ -15,8 +15,10 @@
 
     <script src="../js/createVoting.js"></script>
     <script src="../js/startStopVoting.js"></script>
-    <script src="../js/getVotingLink.js"></script>
     <script src="../js/getOptions.js"></script>
+    <script src="../js/getVotingStatistic.js"></script>
+    <script src="../js/getAnswerStatistic.js"></script>
+    <script src="../js/sendSelectedAnswersId.js"></script>
 </head>
 <body ng-app="VotingService">
 Home page
@@ -59,17 +61,57 @@ Home page
     <br><br>
     <button ng-click="startVoting(votingId)" class="create-button">Start Voting</button>
     <button ng-click="stopVoting(votingId)" class="create-button">Stop Voting</button>
+
+    <p>
+        Generated Link: <a target="_blank" href="{{link}}">{{link}}</a>
+    </p>
+    <p>
+        Link for user interface: <a target="_blank" href="{{userLink}}">{{userLink}}</a>
+    </p>
+</div>
+
+<div ng-controller="GetAnswerStatisticController">
+    <hr>
+    <h2>Get Answer Statistic</h2>
+    <label>answer id: <input type="text" ng-model="answerId"/></label>
+    <button ng-click="getAnswerStatisticByAnswerId(votingId)" class="create-button">Get Answer Statistic By Answer ID</button>
+
+    <label> Count: {{count}}</label>
+
+
 </div>
 
 
-<div ng-controller="GetVotingLinkController">
-    <br>
+<div ng-controller="GetVotingStatisticController">
+    <hr>
+    <h2>Get Voting Statistic by link {{generatedVotingLink}}</h2>
+    <button ng-click="getVotingStatistic(votingId)" class="create-button">Get Voting Statistic</button>
+
+    <pre>{{voting | json}}</pre>
+</div>
+
+
+<div ng-controller="SendSelectedAnswersIdController">
     <hr/>
-    <h2>Get Voting Link</h2>
-    <button ng-click="getLinkByVotingId()" class="create-button">Get Voting Link</button>
-    <p>
-        Link: <a target="_blank" href="{{link}}">{{link}}</a>
-    </p>
+    <h3> Generate JSON selectedAnswersId </h3>
+
+    <form novalidate class="simple-form">
+        <label>selectedAnswerId:</label>
+        <input type="text" placeholder="Enter a answerId" ng-model="selectedAnswerId">
+        <!--<div class="form-group" data-ng-repeat="selectedAnswerId in selectedAnswersId">-->
+            <!--<input type="text" placeholder="Enter a answerId" ng-model="selectedAnswerId">-->
+        <!--</div>-->
+        <br>
+        <button ng-click="removeLastAnswer()">Remove Answer</button>
+        <button ng-click="addNewAnswer(selectedAnswerId)">Add Answer</button>
+        <!--<button ng-show="showAddAnswer(selectedAnswerId)" ng-click="addNewAnswer()">Add Answer</button>-->
+    </form>
+
+    <h3>JSON:</h3>
+    <pre>{{selectedAnswersId | json}}</pre>
+    <br>
+    <h2>Send selected answersId to server using JSON</h2>
+    <button ng-click="sendSelectedAnswersId()" class="create-button">Send selectedAnswersId</button>
 </div>
 
 <div data-ng-controller="GetOptionsController" data-ng-init="init()">
@@ -88,6 +130,10 @@ Home page
             <td>{{ option.description }}</td>
         </tr>
     </table>
+
+
+    <pre>{{ options| json}}</pre>
+
 </div>
 
 <br>

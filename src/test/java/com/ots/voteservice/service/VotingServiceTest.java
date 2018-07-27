@@ -116,7 +116,7 @@ public class VotingServiceTest {
 
         Voting savedVoting = votingRepository.save(voting);
 
-        Voting foundedVoting = votingService.getVotingById(savedVoting.getVotingId());
+        Voting foundedVoting = votingService.getVotingStatisticForUserInterface(savedVoting.getVotingId());
 
         assertEquals(savedVoting, foundedVoting);
 
@@ -140,7 +140,7 @@ public class VotingServiceTest {
         Voting savedVoting = votingRepository.save(voting);
         VotingDto votingDto = new VotingDto().toDto(voting);
 
-        VotingDto foundedVotingDto = votingService.getVotingDtoById(savedVoting.getVotingId());
+        VotingDto foundedVotingDto = votingService.getVotingStatisticForRest(savedVoting.getVotingId());
 
 
         assertEquals(votingDto, foundedVotingDto);
@@ -148,28 +148,6 @@ public class VotingServiceTest {
         clearDatabase();
     }
 
-
-    @Test
-    public void getLinkByVotingId() {
-        String votingTheme = "food";
-        String question = "what to it?";
-        List<Answer> answerList = new ArrayList<>();
-        Answer answer1 = new Answer("apple", 0);
-        Answer answer2 = new Answer("banana", 0);
-        answerList.add(answer1);
-        answerList.add(answer2);
-        String link = "http://localhost:8090/voting/1";
-        boolean isOpen = false;
-        Voting voting = new Voting(votingTheme, question, answerList, link, isOpen);
-
-        Voting savedVoting = votingRepository.save(voting);
-
-        String foundedLink = votingService.getLinkByVotingId(savedVoting.getVotingId());
-
-        assertEquals(foundedLink, link);
-
-        clearDatabase();
-    }
 
     @Test
     public void startVoting() {
@@ -186,7 +164,7 @@ public class VotingServiceTest {
 
         Voting savedVoting = votingRepository.save(voting);
 
-        votingService.startVoting(savedVoting.getVotingId());
+        votingService.startVotingAndGenerateLink(savedVoting.getVotingId());
 
         Optional<Voting> foundedVoting = votingRepository.findByVotingId(savedVoting.getVotingId());
 
@@ -240,7 +218,7 @@ public class VotingServiceTest {
         selectedAnswerId.add(String.valueOf(savedVoting.getAnswers().get(0).getAnswerId()));
         selectedAnswerId.add(String.valueOf(savedVoting.getAnswers().get(1).getAnswerId()));
 
-        votingService.setVotes(selectedAnswerId, String.valueOf(savedVoting.getVotingId()));
+        votingService.setSelectedAnswers(selectedAnswerId, savedVoting.getVotingId());
 
         Optional<Voting> foundedVoting = votingRepository.findByVotingId(savedVoting.getVotingId());
 
@@ -270,7 +248,7 @@ public class VotingServiceTest {
         selectedAnswerId.add(String.valueOf(savedVoting.getAnswers().get(0).getAnswerId()));
         selectedAnswerId.add(String.valueOf(savedVoting.getAnswers().get(1).getAnswerId()));
 
-        votingService.setVotes(selectedAnswerId, String.valueOf(savedVoting.getVotingId()));
+        votingService.setSelectedAnswers(selectedAnswerId, savedVoting.getVotingId());
 
         Optional<Voting> foundedVoting = votingRepository.findByVotingId(savedVoting.getVotingId());
 

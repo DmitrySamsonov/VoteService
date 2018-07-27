@@ -30,30 +30,9 @@ public class VotingService {
         return savedVoting.getVotingId();
     }
 
-    public Voting getVotingById(int votingId) {
-        if (!isInteger(votingId)) {
-            throw new IllegalArgumentException("votingId is not valid.");
-        }
-        Optional<Voting> voting = votingRepository.findById(votingId);
-        return voting.get();
-    }
-
-    public VotingDto getVotingDtoById(int votingId) {
-        if (!isInteger(votingId)) {
-            throw new IllegalArgumentException("votingId is not valid.");
-        }
-        Voting voting = getVotingById(votingId);
-        VotingDto votingDto = new VotingDto().toDto(voting);
-        return votingDto;
-    }
-
-    public String getLinkByVotingId(int id) {
-        Optional<Voting> findedVoting = votingRepository.findByVotingId(id);
-        return findedVoting.get().getLink();
-    }
-
-    public void startVoting(int votingId) {
+    public String startVotingAndGenerateLink(int votingId) {
         changeOpenValueInVoting(votingId, true);
+        return generateLinkByVotingId(votingId);
     }
 
     public void stopVoting(int votingId) {
@@ -69,22 +48,67 @@ public class VotingService {
         }
     }
 
-    public void setVotes(List<String> selectedAnswersId, String votingId) {
-        int votingIdInt = Integer.valueOf(votingId);
-        Optional<Voting> findedVoting = votingRepository.findByVotingId(votingIdInt);
+    private String generateLinkByVotingId(int votingId) {
+
+        Optional<Voting> findedVoting = votingRepository.findByVotingId(votingId);
+
+        String link = "http://localhost:8090/rest/voting/" + votingId;
+        findedVoting.get().setLink(link);
+
+        return link;
+    }
+
+    public Voting getVotingStatisticForUserInterface(int votingId) {
+        if (!isInteger(votingId)) {
+            throw new IllegalArgumentException("votingId is not valid.");
+        }
+        Optional<Voting> voting = votingRepository.findById(votingId);
+        return voting.get();
+    }
+
+    public VotingDto getVotingStatisticForRest(int votingId) {
+        if (!isInteger(votingId)) {
+            throw new IllegalArgumentException("votingId is not valid.");
+        }
+        Voting voting = getVotingStatisticForUserInterface(votingId);
+        VotingDto votingDto = new VotingDto().toDto(voting);
+        return votingDto;
+    }
+
+    public int getAnswerStatisticByAnswerId(int votingId, int answerId) {
+        Optional<Voting> findedVoting = votingRepository.findByVotingId(votingId);
+        List<Answer> answers = findedVoting.get().getAnswers();
+        for (Answer answer : answers) {
+            if (answer.getAnswerId() == answerId) {
+                return answer.getCount();
+            }
+        }
+        return 0;
+    }
+
+    public void setSelectedAnswers(List<String> selectedAnswersId, int votingId) {
+        Optional<Voting> findedVoting = votingRepository.findByVotingId(votingId);
         Voting voting = findedVoting.get();
+
         List<Answer> answers = voting.getAnswers();
-        List<Integer> selectedAnswersIdInt =
-                selectedAnswersId.stream().map(Integer::parseInt).collect(Collectors.toList());
-        for (int i = 0; i < answers.size(); i++) {
+
+        List<Integer> selectedAnswersIdInt = convertListStringToListInteger(selectedAnswersId);
+
+        for (Answer answer : answers) {
             for (int selectedAnswerId : selectedAnswersIdInt) {
-                if (answers.get(i).getAnswerId() == selectedAnswerId && voting.isOpen()) {
-                    int count = answers.get(i).getCount();
-                    answers.get(i).setCount(count + 1);
+                if (answer.getAnswerId() == selectedAnswerId && voting.isOpen()) {
+                    int count = answer.getCount();
+                    answer.setCount(count + 1);
                 }
             }
         }
+
         votingRepository.save(voting);
+    }
+
+
+    private List<Integer> convertListStringToListInteger(List<String> selectedAnswersId) {
+        return selectedAnswersId.stream().map(Integer::parseInt).collect(Collectors.toList());
     }
 
 
@@ -108,5 +132,6 @@ public class VotingService {
         }
         return false;
     }
+
 
 }

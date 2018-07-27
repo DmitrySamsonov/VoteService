@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
+@Transactional
 public interface OptionsRepository extends CrudRepository<Options, Integer> {
 }

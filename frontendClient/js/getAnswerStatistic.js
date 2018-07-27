@@ -1,19 +1,18 @@
-app.controller("GetVotingLinkController", function ($scope, $http) {
+app.controller("GetAnswerStatisticController", function ($scope, $http) {
 
-    $scope.link = "";
+    $scope.answerId = 0;
 
-    $scope.getLinkByVotingId = function () {
-        // alert("getLinkByVotingId()");
+    $scope.getAnswerStatisticByAnswerId = function () {
         $http({
             method: 'GET',
-            url: 'http://localhost:8090/rest/voting/' + votingId + '/link',
+            url: 'http://localhost:8090/rest/voting/' + votingId + '/' + $scope.answerId,
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(
             function (res) { // success
                 console.log("success: " + res.status + " : " + res.data);
-                $scope.link = res.data;
+                $scope.count = res.data;
             },
             function (res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
