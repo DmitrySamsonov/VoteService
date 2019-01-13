@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="import" href="create.html">
+
+    <script src="../js/AddCheckbox.js"></script>
+    <script src="../js/AddRadiobutton.js"></script>
+    <script src="../js/AddSelect.js"></script>
+    <script src="../js/AddTextarea.js"></script>
+    <script src="../js/AddTextField.js"></script>
+    <script src="../js/tabs.js"></script>
+
+</head>
+<body>
+<style>
+    #oprosnik {
+        width: 600px
+    }
+
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    /* Style the buttons that are used to open the tab content */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+        animation: fadeEffect 1s; /* Fading effect takes 1 second */
+    }
+
+    /* Go from zero to full opacity */
+    @keyframes fadeEffect {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+</style>
+
+<!-- Tab links -->
+<div id="tabs">
+    <button class="tablinks" onclick="openCity(event, 'Create')">Создание опроса</button>
+    <button class="tablinks" onclick="openCity(event, 'Share')">Распространить</button>
+    <button class="tablinks" onclick="openCity(event, 'Result')">Результаты</button>
+</div>
+<!-- Tab content -->
+<div id="Create" class="tabcontent">
+    <h3>Create</h3>
+    <p>Create is the capital city of England.</p>
+</div>
+
+<div id="Share" class="tabcontent">
+    <h3>Share</h3>
+    <p>Share is the capital of France.</p>
+    <frameset rows="100%">
+
+        <frame src="create.html"></frame>
+
+    </frameset>
+
+</div>
+
+<div id="Result" class="tabcontent">
+    <h3>Result</h3>
+    <p>Result is the capital of Japan.</p>
+</div>
+
+<link rel="import" href="create.html">
+
+<form method="post" action="">
+    <p id="addnew">
+        <a href="javascript:add_new_textField()">Add New TextField</a>
+    </p>
+
+    <p id="addnewTextarea">
+        <a href="javascript:add_new_textarea()">Add New Textarea</a>
+    </p>
+
+
+    <p id="addnewCheckbox">
+        <a href="javascript:add_new_checkbox()">Add New CheckBox</a>
+    </p>
+
+
+    <p id="addnewRadiobutton">
+        <a href="javascript:add_new_radiobutton()">Add New Radiobutton</a>
+    </p>
+
+
+    <p id="addnewSelect">
+        <a href="javascript:add_new_select()">Add New Select</a>
+    </p>
+
+
+    <div id="oprosnik">
+    </div>
+
+
+    <p>
+        <br>
+        <input type="submit" name="submit1">
+        <input type="reset" name="reset1">
+    </p>
+
+</form>
+
+<!-- Template -->
+<div id="newTextField" style="display:none">
+    <div>
+        <p> TextField:</p>
+        <input type="text" name="linkurl[]" value="">
+    </div>
+</div>
+
+
+<!-- Template -->
+<div id="newTextarea" style="display:none">
+    <div>
+        <p> Description: </p>
+        <textarea name="linkdesc[]" cols="50" rows="5"></textarea>
+    </div>
+</div>
+
+
+<!-- Template -->
+<div id="newCheckbox" style="display:none">
+    <div>
+        <p> Checkbox: </p>
+        <label><input type="checkbox" name="linkurl3" value="first"> <input type="text" name="linkurl[]" value=""></label>
+    </div>
+</div>
+
+
+<!-- Template -->
+<div id="newRadiobutton" style="display:none">
+    <div>
+        <p> Radiobutton: </p>
+        <input type="radio" name="r1" value="first"> <input type="text" name="linkurl[]" value="012">
+    </div>
+</div>
+
+
+<!-- Template -->
+<div id="newSelect" style="display:none">
+    <div>
+        <p> Select: </p>
+        <select name="lang">
+            <option value="3"><div>one</div></option>
+            <option value="4"><div>two</div></option>
+            <option value="5"><div></div></option>
+            <option value="55"><div></div></option>
+            <option value="6"><div>tree</div></option>
+        </select>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>
