@@ -18,3 +18,21 @@ function openCity(evt, cityName) {
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+
+// function fun(){
+
+//     var link = document.querySelector('link[rel=import]');
+//     var content = link.import.querySelector('#create');
+//     var cnodes = document.importNode(content, true);
+//     // document.body.appendChild(cnodes);
+
+
+//     // var content = '<p>huy</p>';
+
+//     document.getElementById('createContent').DOCUMENT_NODE += cnodes;
+
+// }
