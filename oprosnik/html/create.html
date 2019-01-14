@@ -7,6 +7,7 @@
     <script src="../js/AddCheckbox.js"></script>
     <script src="../js/AddRadiobutton.js"></script>
     <script src="../js/AddSelect.js"></script>
+    <script src="../js/AddSelectOneOption.js"></script>
     <script src="../js/AddTextarea.js"></script>
     <script src="../js/AddTextField.js"></script>
 
@@ -35,11 +36,16 @@
         <p id="addnewRadiobutton">
             <a href="javascript:add_new_radiobutton()">Add New Radiobutton</a>
         </p>
-    
-    
+        
         <p id="addnewSelect">
             <a href="javascript:add_new_select()">Add New Select</a>
         </p>
+
+        
+        <p id="addnewSelectOneOption">
+            <a href="javascript:add_new_selectOneOption()">Add New Select One Option</a>
+        </p>
+        
     
     
         <div id="oprosnik">
@@ -52,6 +58,28 @@
         </p>
     
     </form>
+
+
+    <!-- Template -->
+    <div id = "34">
+            <div id="newSelectOneOption" style="display:none">
+                    <div>
+                        <p> Выбор одного варианта:</p>
+                        <input type="text" name="linkurl[]" value="" placeholder="Текст вопроса">
+                        <div id="55">
+                            <input type="text" name="" value="" placeholder="Вариант ответа#1" style="margin-left:20px">
+                            <div style="text-align:right;margin-right:65px"><a href="javascript:delIt('+ ct +')">Del</a></div>
+                            <br/>
+                            <input type="text" name="" value="" placeholder="Вариант ответа#2" style="margin-left:20px"><br/>
+                            <input type="text" name="" value="" placeholder="Вариант ответа#3" style="margin-left:20px"><br/>
+                            <input type="text" name="" value="" placeholder="Вариант ответа#3" style="margin-left:20px"><br/>
+                            <a href="javascript:add_new_selectOneOption('+ value +'')" value="13">Добавить вариант ответа</a>
+                        </div>
+                    </div>
+            </div>
+    </div>
+
+
     
     <!-- Template -->
     <div id="newTextField" style="display:none">

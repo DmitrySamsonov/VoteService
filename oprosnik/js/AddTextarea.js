@@ -1,5 +1,3 @@
-
-
 var ct = 1;
 function add_new_textarea()
 {
