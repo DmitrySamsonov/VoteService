@@ -12,6 +12,15 @@ function add_new_textarea()
 
 
 
+function add_new(){
+
+    var html = '<p>huihuihuihui</p>';
+
+    var div1 = document.createElement('div');
+    div1.innerHTML = html;
+    document.getElementById('500').appendChild(div1);
+}
+
 
 // // function to delete the newly added set of elements
 // function delIt(eleId)

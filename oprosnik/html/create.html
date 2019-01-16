@@ -4,20 +4,38 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <script language="JavaScript">
+        var app = angular.module("VotingService2", []);
+        var votingLink = "";
+        var votingId = "???";
+    </script>
+
+
     <script src="../js/AddCheckbox.js"></script>
     <script src="../js/AddRadiobutton.js"></script>
     <script src="../js/AddSelect.js"></script>
     <script src="../js/AddSelectOneOption.js"></script>
     <script src="../js/AddTextarea.js"></script>
     <script src="../js/AddTextField.js"></script>
+    <script src="../js/TestCotroller.js"></script>
 
 </head>
-<body>
+<body ng-app="VotingService2">
 <style>
         #oprosnik {
         width: 600px
     }
 </style>
+
+<div ng-controller="TestController">
+    <hr>
+    <h2>testController</h2>
+    <button ng-click="testController()" class="create-button">Test Controller</button>
+</div>
+
     
 <div id="createDivId">
     <form method="post" action="">
@@ -56,8 +74,18 @@
             <input type="submit" name="submit1">
             <input type="reset" name="reset1">
         </p>
+
+        <a href="javascript:add_new()">Add New</a>
+
+        <div id="500">
+        </div>
     
     </form>
+
+
+
+
+
 
 
     <!-- Template -->
@@ -73,12 +101,17 @@
                             <input type="text" name="" value="" placeholder="Вариант ответа#2" style="margin-left:20px"><br/>
                             <input type="text" name="" value="" placeholder="Вариант ответа#3" style="margin-left:20px"><br/>
                             <input type="text" name="" value="" placeholder="Вариант ответа#3" style="margin-left:20px"><br/>
-                            <a href="javascript:add_new_selectOneOption('+ value +'')" value="13">Добавить вариант ответа</a>
+                            <a href="javascript:add_new_selectOneOption()">Добавить вариант ответа</a>
                         </div>
                     </div>
             </div>
     </div>
 
+
+
+    <form method="post" action="http://localhost:8090/testing">
+        <input>
+    </form>
 
     
     <!-- Template -->
